@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Translate Dash</string>
+    <string name="choose_mode">Choose mode:</string>
+    <string name="ten_words">10 words</string>
+    <string name="endless">Endless</string>
+</resources>
