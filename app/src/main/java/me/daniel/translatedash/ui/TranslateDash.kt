@@ -23,6 +23,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import me.daniel.translatedash.R
+import me.daniel.translatedash.data.DataSource
 import me.daniel.translatedash.data.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -69,7 +70,13 @@ fun App(
         innerPadding ->
         NavHost(navController = navController, startDestination = Screen.ChooseMode.name, modifier = Modifier.padding(innerPadding)) {
             composable(route = Screen.ChooseMode.name) {
-                ChooseModeScreen()
+                ChooseModeScreen(onModeSelected = { navController.navigate(it.name) })
+            }
+            composable(route = Screen.TenWordsGame.name) {
+                TenWordsGameScreen()
+            }
+            composable(route = Screen.EndlessGame.name) {
+                EndlessModeGameScreen()
             }
         }
     }

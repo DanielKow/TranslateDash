@@ -18,10 +18,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import me.daniel.translatedash.R
 import me.daniel.translatedash.data.DataSource
+import me.daniel.translatedash.data.Screen
 import me.daniel.translatedash.ui.theme.TranslateDashTheme
 
 @Composable
-fun ChooseModeScreen(){
+fun ChooseModeScreen(onModeSelected: (screen: Screen) -> Unit = {}){
     Column(modifier = Modifier.fillMaxSize()) {
         Row(modifier = Modifier.fillMaxSize(),
             horizontalArrangement = Arrangement.Center,
@@ -29,7 +30,7 @@ fun ChooseModeScreen(){
             Column (
                 verticalArrangement = Arrangement.spacedBy(25.dp)){
                 DataSource.modes.forEach {
-                        item -> ModeButton(item)
+                        item -> ModeButton(item.nameResource, onClick = { onModeSelected(item.screen) })
                 }
             }
 
@@ -39,10 +40,11 @@ fun ChooseModeScreen(){
 
 @Composable
 fun ModeButton(
-    @StringRes labelResourceId: Int
+    @StringRes labelResourceId: Int,
+    onClick: () -> Unit = {}
 ) {
     Button(modifier = Modifier.fillMaxWidth(0.75f),
-        onClick = { /*TODO*/ }) {
+        onClick = onClick) {
         Text(stringResource(labelResourceId))
     }
 }
