@@ -6,4 +6,5 @@
     <string name="play">Let\'s translate</string>
     <string name="results">Your score</string>
     <string name="back_button">Back</string>
+    <string name="live">Chance</string>
 </resources>
