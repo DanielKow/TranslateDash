@@ -17,6 +17,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
+import me.daniel.translatedash.data.DataSource
 import me.daniel.translatedash.data.GameResult
 
 @Composable
@@ -25,6 +26,7 @@ fun TenWordsGameScreen(
     gameViewModel: GameViewModel = viewModel()
 ) {
     val gameState by gameViewModel.gameState.collectAsState()
+
     Column(modifier = Modifier.fillMaxSize()) {
         Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) {
             Text(text = "${gameState.index} of 10", fontSize = 18.sp, fontWeight = FontWeight.Bold)
@@ -36,6 +38,10 @@ fun TenWordsGameScreen(
         }, onWrongAnswer = { answer ->
             gameViewModel.answer(answer)
         })
+
+        LaunchedEffect(gameState.index) {
+            gameViewModel.fetchWords()
+        }
 
         LaunchedEffect(gameState.answered) {
             if (gameState.answered) {
@@ -50,7 +56,7 @@ fun TenWordsGameScreen(
                     }
                 }
             } else {
-                delay(5_000)
+                delay(DataSource.secondsToAnswer * 1000L)
                 withContext(Dispatchers.Main) {
                     gameViewModel.answer("")
                 }

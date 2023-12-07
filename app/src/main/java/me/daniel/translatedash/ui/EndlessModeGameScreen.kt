@@ -28,6 +28,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import me.daniel.translatedash.R
+import me.daniel.translatedash.data.DataSource
 import me.daniel.translatedash.data.GameResult
 
 @Composable
@@ -77,7 +78,7 @@ fun EndlessModeGameScreen(
                 }
             }
         } else {
-            delay(5_000)
+            delay(DataSource.secondsToAnswer * 1000L)
             withContext(Dispatchers.Main) {
                 gameViewModel.answer("")
                 gameViewModel.looseLive()

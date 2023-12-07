@@ -5,5 +5,8 @@ data class GameState(
     val lives: Int = 3,
     val index: Int = 1,
     val answered: Boolean = false,
-    val answer: String = ""
+    val answer: String = "",
+    val words: Array<String> = emptyArray(),
+    val correctWord: String = "",
+    val wordToGuess: String = ""
 )

@@ -10,4 +10,5 @@ object DataSource {
         Mode(R.string.ten_words, Screen.TenWordsGame),
         Mode(R.string.endless, Screen.EndlessGame)
     )
+    const val secondsToAnswer: Int = 10
 }

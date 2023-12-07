@@ -1,6 +1,7 @@
 package me.daniel.translatedash.ui
 
 import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
@@ -26,8 +27,10 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import me.daniel.translatedash.data.DataSource
 import me.daniel.translatedash.data.GameState
 import me.daniel.translatedash.data.Translation
+
 
 @Composable
 fun Game(
@@ -35,6 +38,7 @@ fun Game(
     onCorrectAnswer: (String) -> Unit = {},
     onWrongAnswer: (String) -> Unit = {}
 ) {
+
     Column(modifier = Modifier.fillMaxSize()) {
         Row(
             modifier = Modifier
@@ -47,16 +51,12 @@ fun Game(
             Text(text = "Score: ${gameState.score}", fontSize = 18.sp, fontStyle = FontStyle.Italic)
         }
         Row(modifier = Modifier.weight(0.2f)) {
-            ToTranslate(text = "test")
+            ToTranslate(text = gameState.wordToGuess)
         }
         Row(modifier = Modifier.weight(0.7f)) {
             TranslationsGroup(
-                arrayOf(
-                    Translation("test 1", true),
-                    Translation("Test 2"),
-                    Translation("Test 3"),
-                    Translation("Test 4")
-                ), gameState,
+                gameState.words.map { Translation(it, it == gameState.correctWord)}.toTypedArray(),
+                gameState,
                 onAnswered = { chosenTranslation ->
                     if (!gameState.answered) {
                         if (chosenTranslation.correct) {
@@ -93,8 +93,8 @@ fun DecreasingProgressBar(gameState: GameState) {
                 progress.animateTo(
                     targetValue = 0f,
                     animationSpec = tween(
-                        durationMillis = 5000,
-                        easing = LinearOutSlowInEasing
+                        durationMillis = DataSource.secondsToAnswer * 1000,
+                        easing = LinearEasing
                     )
                 )
             }
