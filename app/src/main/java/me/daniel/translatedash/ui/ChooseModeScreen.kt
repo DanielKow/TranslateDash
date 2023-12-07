@@ -4,6 +4,7 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -22,9 +23,15 @@ import me.daniel.translatedash.data.Screen
 import me.daniel.translatedash.ui.theme.TranslateDashTheme
 
 @Composable
-fun ChooseModeScreen(onModeSelected: (screen: Screen) -> Unit = {}){
+fun ChooseModeScreen(onModeSelected: (screen: Screen) -> Unit = {},
+                     alreadyTranslatedCorrectly: Int = 0){
     Column(modifier = Modifier.fillMaxSize()) {
-        Row(modifier = Modifier.fillMaxSize(),
+        Row (modifier = Modifier.fillMaxWidth().fillMaxHeight(0.1f),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically) {
+            Text(text = "You have already translated $alreadyTranslatedCorrectly words correctly!")
+        }
+        Row(modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically) {
             Column (
@@ -33,7 +40,6 @@ fun ChooseModeScreen(onModeSelected: (screen: Screen) -> Unit = {}){
                         item -> ModeButton(item.nameResource, onClick = { onModeSelected(item.screen) })
                 }
             }
-
         }
     }
 }

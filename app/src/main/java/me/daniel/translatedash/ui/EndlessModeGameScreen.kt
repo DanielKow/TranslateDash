@@ -11,16 +11,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun EndlessModeGameScreen() {
+fun EndlessModeGameScreen(
+    onGameFinished: () -> Unit = {}
+) {
     Column(modifier = Modifier.fillMaxSize()) {
-        Row(modifier = Modifier.fillMaxSize(),
+        Row(
+            modifier = Modifier.fillMaxSize(),
             horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically) {
-            Column (
-                verticalArrangement = Arrangement.spacedBy(25.dp)) {
-                Text("Endless")
-            }
-
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text("Endless")
         }
     }
 }
