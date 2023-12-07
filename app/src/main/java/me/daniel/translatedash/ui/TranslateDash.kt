@@ -69,7 +69,7 @@ fun App(
         NavHost(
             navController = navController,
             startDestination = Screen.ChooseMode.name,
-            modifier = Modifier.padding(innerPadding)
+            modifier = Modifier.padding(innerPadding),
         ) {
             composable(route = Screen.ChooseMode.name) {
                 ChooseModeScreen(
