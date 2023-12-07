@@ -23,13 +23,6 @@ import me.daniel.translatedash.ui.theme.TranslateDashTheme
 @Composable
 fun ChooseModeScreen(){
     Column(modifier = Modifier.fillMaxSize()) {
-        Row(modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 10.dp),
-            horizontalArrangement = Arrangement.Center) {
-            Text(text = stringResource(R.string.choose_mode))
-        }
-        Divider()
         Row(modifier = Modifier.fillMaxSize(),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically) {
