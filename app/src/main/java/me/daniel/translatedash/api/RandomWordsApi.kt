@@ -4,11 +4,6 @@ import retrofit2.http.Headers
 import retrofit2.http.Query
 
 interface RandomWordsApi {
-    @Headers(
-        "Accept: application/json"
-    )
-    @GET("word")
-    suspend fun getWord()
 
     @Headers(
         "Accept: application/json"

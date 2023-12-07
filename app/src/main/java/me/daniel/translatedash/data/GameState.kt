@@ -8,5 +8,6 @@ data class GameState(
     val answer: String = "",
     val words: Array<String> = emptyArray(),
     val correctWord: String = "",
-    val wordToGuess: String = ""
+    val wordToGuess: String = "",
+    val isReady: Boolean = false
 )

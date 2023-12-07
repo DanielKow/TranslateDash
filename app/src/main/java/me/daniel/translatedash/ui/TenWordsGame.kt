@@ -10,6 +10,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
@@ -27,22 +30,21 @@ fun TenWordsGameScreen(
 ) {
     val gameState by gameViewModel.gameState.collectAsState()
 
-    Column(modifier = Modifier.fillMaxSize()) {
-        Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) {
-            Text(text = "${gameState.index} of 10", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+    if (gameState.isReady) {
+        Column(modifier = Modifier.fillMaxSize()) {
+            Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) {
+                Text(text = "${gameState.index} of 10", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+            }
+            Game(gameState, onCorrectAnswer = { answer ->
+                gameViewModel.answer(answer)
+                gameViewModel.gainPoint()
+
+            }, onWrongAnswer = { answer ->
+                gameViewModel.answer(answer)
+            })
+
+
         }
-        Game(gameState, onCorrectAnswer = { answer ->
-            gameViewModel.answer(answer)
-            gameViewModel.gainPoint()
-
-        }, onWrongAnswer = { answer ->
-            gameViewModel.answer(answer)
-        })
-
-        LaunchedEffect(gameState.index) {
-            gameViewModel.fetchWords()
-        }
-
         LaunchedEffect(gameState.answered) {
             if (gameState.answered) {
                 delay(1_000);
@@ -63,5 +65,12 @@ fun TenWordsGameScreen(
             }
         }
     }
+
+
+    LaunchedEffect(gameState.index) {
+        gameViewModel.fetchWords()
+    }
+
+
 }
 
