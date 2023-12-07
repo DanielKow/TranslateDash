@@ -44,7 +44,7 @@ class GameViewModel : ViewModel() {
                         val translations = dictionaryApi.getTranslation(word, "enpl", "en")
 
                         val correctWord =
-                            translations[0].hits[0].roms[0].arabs[0].translations[0].target.split(" <span")[0]
+                            translations[0].hits[0].roms[0].arabs[0].translations[0].target.split("<span")[0].trim()
 
                         _gameState.update { currentState ->
                             currentState.copy(
