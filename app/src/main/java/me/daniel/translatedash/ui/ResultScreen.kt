@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun ResultScreen(score: Int, totalWords: Int, onTryAgain: () -> Unit, onTryOtherMode: () -> Unit) {
+fun ResultScreen(guessedWords: Int, totalWords: Int, onTryAgain: () -> Unit, onTryOtherMode: () -> Unit) {
     Column(modifier = Modifier.fillMaxSize()) {
         Row(
             modifier = Modifier.fillMaxSize(),
@@ -29,13 +29,13 @@ fun ResultScreen(score: Int, totalWords: Int, onTryAgain: () -> Unit, onTryOther
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(text = "Your correct answers:")
-                    Text(text = "$score of $totalWords", fontSize = 25.sp)
+                    Text(text = "$guessedWords of $totalWords", fontSize = 25.sp)
                 }
                 Column(
                     verticalArrangement = Arrangement.spacedBy(25.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    val percentage = score / totalWords.toFloat()
+                    val percentage = guessedWords / totalWords.toFloat()
                     if (percentage >= 0.8) {
                         Text(text = "You're awesome!!!", color = Color.Green, fontSize = 30.sp)
                     } else if (percentage >= 0.2) {

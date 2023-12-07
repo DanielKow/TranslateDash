@@ -17,10 +17,11 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
+import me.daniel.translatedash.data.GameResult
 
 @Composable
 fun TenWordsGameScreen(
-    onGameFinished: () -> Unit = {},
+    onGameFinished: (GameResult) -> Unit = {},
     gameViewModel: GameViewModel = viewModel()
 ) {
     val gameState by gameViewModel.gameState.collectAsState()
@@ -41,7 +42,7 @@ fun TenWordsGameScreen(
                 delay(1_000);
                 if (gameState.index == 10) {
                     withContext(Dispatchers.Main) {
-                        onGameFinished()
+                        onGameFinished(GameResult(gameState.score, 10))
                     }
                 } else {
                     withContext(Dispatchers.Main) {

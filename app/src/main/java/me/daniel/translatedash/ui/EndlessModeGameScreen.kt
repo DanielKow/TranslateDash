@@ -20,10 +20,11 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
+import me.daniel.translatedash.data.GameResult
 
 @Composable
 fun EndlessModeGameScreen(
-    onGameFinished: () -> Unit = {},
+    onGameFinished: (GameResult) -> Unit = {},
     gameViewModel: GameViewModel = viewModel()
 ) {
     val gameState by gameViewModel.gameState.collectAsState()
@@ -42,14 +43,19 @@ fun EndlessModeGameScreen(
         })
     }
 
+    LaunchedEffect(gameState.lives) {
+        if (gameState.lives == 0) {
+            withContext(Dispatchers.Main) {
+                delay(1_000)
+                onGameFinished(GameResult(gameState.score, gameState.index))
+            }
+        }
+    }
+
     LaunchedEffect(gameState.answered) {
         if (gameState.answered) {
-            delay(1_000);
-            if (gameState.lives == 0) {
-                withContext(Dispatchers.Main) {
-                    onGameFinished()
-                }
-            } else {
+            delay(1_000)
+            if (gameState.lives > 0) {
                 withContext(Dispatchers.Main) {
                     gameViewModel.nextWord()
                 }
@@ -59,11 +65,6 @@ fun EndlessModeGameScreen(
             withContext(Dispatchers.Main) {
                 gameViewModel.answer("")
                 gameViewModel.looseLive()
-                if (gameState.lives == 0) {
-                    withContext(Dispatchers.Main) {
-                        onGameFinished()
-                    }
-                }
             }
         }
     }

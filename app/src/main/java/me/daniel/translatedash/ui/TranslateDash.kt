@@ -2,7 +2,6 @@ package me.daniel.translatedash.ui
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -78,17 +77,17 @@ fun App(
                 )
             }
             composable(route = Screen.TenWordsGame.name) {
-                TenWordsGameScreen(onGameFinished = {
-                    viewModel.increaseScoreBy(10)
-                    viewModel.setLastScore(5)
+                TenWordsGameScreen(onGameFinished = { result ->
+                    viewModel.increaseScoreBy(result.score)
+                    viewModel.setLastScore(result.score)
                     navController.navigate(Screen.TenWordsResult.name)
                 })
             }
             composable(route = Screen.EndlessGame.name) {
-                EndlessModeGameScreen(onGameFinished = {
-                    viewModel.increaseScoreBy(69)
-                    viewModel.setLastScore(19)
-                    viewModel.setLastTotalWords(100)
+                EndlessModeGameScreen(onGameFinished = {result ->
+                    viewModel.increaseScoreBy(result.score)
+                    viewModel.setLastScore(result.score)
+                    viewModel.setLastTotalWords(result.totalWords)
                     navController.navigate(Screen.EndlessResult.name)
                 })
             }

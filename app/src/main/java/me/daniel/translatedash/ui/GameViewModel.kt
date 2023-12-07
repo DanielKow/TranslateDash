@@ -28,8 +28,6 @@ class GameViewModel : ViewModel() {
     }
 
     fun gainPoint() {
-        _gameState.update { currentState ->
-            currentState.copy(score = currentState.score + 1)
-        }
+        _gameState.update { currentState -> currentState.copy(score = currentState.score + 1) }
     }
 }
