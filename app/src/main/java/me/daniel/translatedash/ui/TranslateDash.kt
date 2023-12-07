@@ -85,12 +85,25 @@ fun App(
                 })
             }
             composable(route = Screen.EndlessGame.name) {
-                EndlessModeGameScreen()
+                EndlessModeGameScreen(onGameFinished = {
+                    viewModel.increaseScoreBy(69)
+                    viewModel.setLastScore(19)
+                    viewModel.setLastTotalWords(100)
+                    navController.navigate(Screen.EndlessResult.name)
+                })
             }
             composable(route = Screen.TenWordsResult.name) {
-                TenWordsResultScreen(
+                ResultScreen(
                     uiState.lastScore,
+                    10,
                     onTryAgain = { navController.navigate(Screen.TenWordsGame.name) },
+                    onTryOtherMode = { navController.navigate(Screen.ChooseMode.name) })
+            }
+            composable(route = Screen.EndlessResult.name) {
+                ResultScreen(
+                    uiState.lastScore,
+                    uiState.lastTotalWords,
+                    onTryAgain = { navController.navigate(Screen.EndlessGame.name) },
                     onTryOtherMode = { navController.navigate(Screen.ChooseMode.name) })
             }
         }

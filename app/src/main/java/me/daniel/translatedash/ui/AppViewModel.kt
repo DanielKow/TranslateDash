@@ -22,4 +22,10 @@ class AppViewModel : ViewModel() {
             currentState.copy(lastScore = score)
         }
     }
+
+    fun setLastTotalWords(totalWords: Int) {
+        _uiState.update { currentState ->
+            currentState.copy(lastTotalWords = totalWords)
+        }
+    }
 }
